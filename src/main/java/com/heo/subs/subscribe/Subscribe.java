@@ -1,6 +1,14 @@
 package com.heo.subs.subscribe;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 public interface Subscribe {
-    public Long countEndDate();
-    public void changePrice(Long price);
+    void changePrice(int price);
+
+    default int countEndDate(LocalDate now, LocalDate endDate){
+        Long count = ChronoUnit.DAYS.between(now, endDate);
+
+        return count.intValue();
+    }
 }

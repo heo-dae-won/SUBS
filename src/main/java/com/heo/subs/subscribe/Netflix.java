@@ -1,29 +1,33 @@
 package com.heo.subs.subscribe;
 
+import lombok.Data;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
+@Data
 public class Netflix implements Subscribe{
-    private Long price;
+    private int price;
     private LocalDate startDate;
     private LocalDate endDate;
     private Period period;
 
-    public Netflix(Long price, int period
-            , LocalDate startDate){
+    public Netflix(int price, Period period
+            , LocalDate startDate
+            , LocalDate endDate){
         this.price = price;
+        this.period = period;
         this.startDate = startDate;
-        this.endDate = startDate.plusMonths(Period.ofMonths(period).getMonths());
+        this.endDate = endDate;
     }
 
     @Override
-    public Long countEndDate() {
-        return ChronoUnit.DAYS.between(LocalDate.now(), endDate);
-    }
-
-    @Override
-    public void changePrice(Long price) {
-        this.price = price;
+    public void changePrice(int price) {
+        System.out.println("endDate == " + endDate);
+        System.out.println("getDay == " + period.getDays());
+        System.out.println("getMon == " + period.getMonths());
+        endDate = startDate.plusMonths(period.getMonths());
+        System.out.println("update endDate == " + endDate);
     }
 }
